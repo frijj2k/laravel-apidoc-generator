@@ -1,5 +1,5 @@
 {
-    "name": "mpociot/laravel-apidoc-generator",
+    "name": "frijj2k/laravel-apidoc-generator",
     "license": "MIT",
     "description": "Generate beautiful API documentation from your Laravel application",
     "keywords": [
@@ -7,8 +7,12 @@
         "Documentation",
         "Laravel"
     ],
-    "homepage": "http://github.com/mpociot/laravel-apidoc-generator",
+    "homepage": "http://github.com/frijj2k/laravel-apidoc-generator",
     "authors": [
+        {
+            "name": "Dave Pearson",
+            "email": "dave@pds-uk.com"
+        },
         {
             "name": "Marcel Pociot",
             "email": "m.pociot@gmail.com"
@@ -30,12 +34,12 @@
     },
     "autoload": {
         "psr-0": {
-            "Mpociot\\ApiDoc": "src/"
+            "Frijj2k\\ApiDoc": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Mpociot\\ApiDoc\\Tests\\": "tests/"
+            "Frijj2k\\ApiDoc\\Tests\\": "tests/"
         }
     }
 }

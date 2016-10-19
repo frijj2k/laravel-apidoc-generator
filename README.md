@@ -1,6 +1,6 @@
 ## Laravel API Documentation Generator
 
-Automatically generate your API documentation from your existing Laravel routes. Take a look at the [example documentation](http://marcelpociot.com/whiteboard/).
+Automatically generate your API documentation from your existing Laravel routes. A fork of the original [laravel-apidoc-generator](https://github.com/mpociot/laravel-apidoc-generator/) by Marcel Pociot. Take a look at his [example documentation](http://marcelpociot.com/whiteboard/).
 
 `php artisan api:gen --routePrefix="settings/api/*"`
 
@@ -104,7 +104,7 @@ public function rules()
 
 #### API responses
 
-If your API route accepts a `GET` method, this package tries to call the API route with all middleware disabled to fetch an example API response. 
+If your API route accepts a `GET` method, this package tries to call the API route with all middleware disabled to fetch an example API response.
 
 If your API needs an authenticated user, you can use the `actAsUserId` option to specify a user ID that will be used for making these API calls:
 
@@ -130,7 +130,7 @@ If you don't want to create a Postman collection, use the `--noPostmanCollection
 
 If you want to modify the content of your generated documentation, go ahead and edit the generated `index.md` file.
 The default location of this file is: `public/docs/source/index.md`.
- 
+
 After editing the markdown file, use the `api:update` command to rebuild your documentation as a static HTML file.
 
 ```sh
