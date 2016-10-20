@@ -1,16 +1,17 @@
 <?php
 
-namespace Mpociot\ApiDoc\Tests;
+namespace Frijj2k\ApiDoc\Tests;
 
 use Illuminate\Translation\LoaderInterface;
 use Illuminate\Translation\Translator;
-use Mpociot\ApiDoc\ApiDocGeneratorServiceProvider;
-use Mpociot\ApiDoc\Parsers\RuleDescriptionParser;
+use Frijj2k\ApiDoc\ApiDocGeneratorServiceProvider;
+use Frijj2k\ApiDoc\Parsers\RuleDescriptionParser;
 use Orchestra\Testbench\TestCase;
 use Mockery as m;
 
 class RuleDescriptionParserTest extends TestCase
 {
+
     protected $translatorMock;
 
     public function setUp()

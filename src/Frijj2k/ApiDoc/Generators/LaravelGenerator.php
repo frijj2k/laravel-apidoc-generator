@@ -1,6 +1,6 @@
 <?php
 
-namespace Mpociot\ApiDoc\Generators;
+namespace Frijj2k\ApiDoc\Generators;
 
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\App;
@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Request;
 
 class LaravelGenerator extends AbstractGenerator
 {
+
     /**
      * @param Route $route
      *
@@ -45,15 +46,15 @@ class LaravelGenerator extends AbstractGenerator
         }
 
         return $this->getParameters([
-            'id' => md5($route->getUri().':'.implode($route->getMethods())),
-            'resource' => $routeGroup,
-            'title' => $routeDescription['short'],
-            'description' => $routeDescription['long'],
-            'methods' => $route->getMethods(),
-            'uri' => $route->getUri(),
-            'parameters' => [],
-            'response' => $content,
-        ], $routeAction, $bindings);
+                'id' => md5($route->getUri() . ':' . implode($route->getMethods())),
+                'resource' => $routeGroup,
+                'title' => $routeDescription['short'],
+                'description' => $routeDescription['long'],
+                'methods' => $route->getMethods(),
+                'uri' => $route->getUri(),
+                'parameters' => [],
+                'response' => $content,
+                ], $routeAction, $bindings);
     }
 
     /**
@@ -75,13 +76,12 @@ class LaravelGenerator extends AbstractGenerator
         App::instance('middleware.disable', true);
 
         $server = collect([
-            'CONTENT_TYPE' => 'application/json',
-            'Accept' => 'application/json',
-        ])->merge($server)->toArray();
+                'CONTENT_TYPE' => 'application/json',
+                'Accept' => 'application/json',
+            ])->merge($server)->toArray();
 
         $request = Request::create(
-            $uri, $method, $parameters,
-            $cookies, $files, $this->transformHeadersToServerVars($server), $content
+                $uri, $method, $parameters, $cookies, $files, $this->transformHeadersToServerVars($server), $content
         );
 
         $response = $kernel->handle($request);

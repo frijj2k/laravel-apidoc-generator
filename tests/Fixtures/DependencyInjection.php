@@ -1,11 +1,12 @@
 <?php
 
-namespace Mpociot\ApiDoc\Tests\Fixtures;
+namespace Frijj2k\ApiDoc\Tests\Fixtures;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
 
 class DependencyInjection
 {
+
     /**
      * @var
      */

@@ -1,11 +1,11 @@
 <?php
 
-namespace Mpociot\ApiDoc\Parsers;
+namespace Frijj2k\ApiDoc\Parsers;
 
 class RuleDescriptionParser
 {
-    private $rule;
 
+    private $rule;
     private $parameters = [];
 
     const DEFAULT_LOCALE = 'en';
@@ -34,8 +34,8 @@ class RuleDescriptionParser
     public function with($parameters)
     {
         is_array($parameters) ?
-            $this->parameters += $parameters :
-            $this->parameters[] = $parameters;
+                $this->parameters += $parameters :
+                $this->parameters[] = $parameters;
 
         return $this;
     }
@@ -54,8 +54,8 @@ class RuleDescriptionParser
     protected function makeDescription()
     {
         $description = trans()->hasForLocale($this->rule) ?
-                            trans()->get($this->rule) :
-                            trans()->get($this->rule, [], self::DEFAULT_LOCALE);
+            trans()->get($this->rule) :
+            trans()->get($this->rule, [], self::DEFAULT_LOCALE);
 
         return $this->replaceAttributes($description);
     }

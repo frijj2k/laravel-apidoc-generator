@@ -1,19 +1,20 @@
 <?php
 
-namespace Mpociot\ApiDoc\Tests;
+namespace Frijj2k\ApiDoc\Tests;
 
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route as RouteFacade;
-use Mpociot\ApiDoc\ApiDocGeneratorServiceProvider;
-use Mpociot\ApiDoc\Generators\LaravelGenerator;
-use Mpociot\ApiDoc\Tests\Fixtures\TestController;
-use Mpociot\ApiDoc\Tests\Fixtures\TestRequest;
+use Frijj2k\ApiDoc\ApiDocGeneratorServiceProvider;
+use Frijj2k\ApiDoc\Generators\LaravelGenerator;
+use Frijj2k\ApiDoc\Tests\Fixtures\TestController;
+use Frijj2k\ApiDoc\Tests\Fixtures\TestRequest;
 use Orchestra\Testbench\TestCase;
 
 class ApiDocGeneratorTest extends TestCase
 {
+
     /**
-     * @var \Mpociot\ApiDoc\AbstractGenerator
+     * @var \Frijj2k\ApiDoc\AbstractGenerator
      */
     protected $generator;
 
@@ -36,8 +37,8 @@ class ApiDocGeneratorTest extends TestCase
 
     public function testCanParseMethodDescription()
     {
-        RouteFacade::get('/api/test', TestController::class.'@parseMethodDescription');
-        $route = new Route(['GET'], '/api/test', ['uses' => TestController::class.'@parseMethodDescription']);
+        RouteFacade::get('/api/test', TestController::class . '@parseMethodDescription');
+        $route = new Route(['GET'], '/api/test', ['uses' => TestController::class . '@parseMethodDescription']);
         $parsed = $this->generator->processRoute($route);
 
         $this->assertSame('Example title.', $parsed['title']);
@@ -46,40 +47,40 @@ class ApiDocGeneratorTest extends TestCase
 
     public function testCanParseRouteMethods()
     {
-        RouteFacade::get('/get', TestController::class.'@dummy');
-        RouteFacade::post('/post', TestController::class.'@dummy');
-        RouteFacade::put('/put', TestController::class.'@dummy');
-        RouteFacade::delete('/delete', TestController::class.'@dummy');
+        RouteFacade::get('/get', TestController::class . '@dummy');
+        RouteFacade::post('/post', TestController::class . '@dummy');
+        RouteFacade::put('/put', TestController::class . '@dummy');
+        RouteFacade::delete('/delete', TestController::class . '@dummy');
 
-        $route = new Route(['GET'], '/get', ['uses' => TestController::class.'@parseMethodDescription']);
+        $route = new Route(['GET'], '/get', ['uses' => TestController::class . '@parseMethodDescription']);
         $parsed = $this->generator->processRoute($route);
         $this->assertSame(['GET', 'HEAD'], $parsed['methods']);
 
-        $route = new Route(['POST'], '/post', ['uses' => TestController::class.'@parseMethodDescription']);
+        $route = new Route(['POST'], '/post', ['uses' => TestController::class . '@parseMethodDescription']);
         $parsed = $this->generator->processRoute($route);
         $this->assertSame(['POST'], $parsed['methods']);
 
-        $route = new Route(['PUT'], '/put', ['uses' => TestController::class.'@parseMethodDescription']);
+        $route = new Route(['PUT'], '/put', ['uses' => TestController::class . '@parseMethodDescription']);
         $parsed = $this->generator->processRoute($route);
         $this->assertSame(['PUT'], $parsed['methods']);
 
-        $route = new Route(['DELETE'], '/delete', ['uses' => TestController::class.'@parseMethodDescription']);
+        $route = new Route(['DELETE'], '/delete', ['uses' => TestController::class . '@parseMethodDescription']);
         $parsed = $this->generator->processRoute($route);
         $this->assertSame(['DELETE'], $parsed['methods']);
     }
 
     public function testCanParseDependencyInjectionInControllerMethods()
     {
-        RouteFacade::post('/post', TestController::class.'@dependencyInjection');
-        $route = new Route(['POST'], '/post', ['uses' => TestController::class.'@dependencyInjection']);
+        RouteFacade::post('/post', TestController::class . '@dependencyInjection');
+        $route = new Route(['POST'], '/post', ['uses' => TestController::class . '@dependencyInjection']);
         $parsed = $this->generator->processRoute($route);
         $this->assertTrue(is_array($parsed));
     }
 
     public function testCanParseFormRequestRules()
     {
-        RouteFacade::post('/post', TestController::class.'@parseFormRequestRules');
-        $route = new Route(['POST'], '/post', ['uses' => TestController::class.'@parseFormRequestRules']);
+        RouteFacade::post('/post', TestController::class . '@parseFormRequestRules');
+        $route = new Route(['POST'], '/post', ['uses' => TestController::class . '@parseFormRequestRules']);
         $parsed = $this->generator->processRoute($route);
         $parameters = $parsed['parameters'];
 
@@ -332,7 +333,6 @@ class ApiDocGeneratorTest extends TestCase
                     $this->assertSame('url', $attribute['type']);
                     $this->assertCount(0, $attribute['description']);
                     break;
-
             }
         }
     }

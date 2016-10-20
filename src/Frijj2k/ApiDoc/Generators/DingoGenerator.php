@@ -1,11 +1,12 @@
 <?php
 
-namespace Mpociot\ApiDoc\Generators;
+namespace Frijj2k\ApiDoc\Generators;
 
 use Exception;
 
 class DingoGenerator extends AbstractGenerator
 {
+
     /**
      * @param \Illuminate\Routing\Route $route
      * @param array $bindings
@@ -22,6 +23,7 @@ class DingoGenerator extends AbstractGenerator
             try {
                 $response = $this->getRouteResponse($route, $bindings, $headers);
             } catch (Exception $e) {
+
             }
         }
 
@@ -30,15 +32,15 @@ class DingoGenerator extends AbstractGenerator
         $routeDescription = $this->getRouteDescription($routeAction['uses']);
 
         return $this->getParameters([
-            'id' => md5($route->uri().':'.implode($route->getMethods())),
-            'resource' => $routeGroup,
-            'title' => $routeDescription['short'],
-            'description' => $routeDescription['long'],
-            'methods' => $route->getMethods(),
-            'uri' => $route->uri(),
-            'parameters' => [],
-            'response' => $response,
-        ], $routeAction, $bindings);
+                'id' => md5($route->uri() . ':' . implode($route->getMethods())),
+                'resource' => $routeGroup,
+                'title' => $routeDescription['short'],
+                'description' => $routeDescription['long'],
+                'methods' => $route->getMethods(),
+                'uri' => $route->uri(),
+                'parameters' => [],
+                'response' => $response,
+                ], $routeAction, $bindings);
     }
 
     /**

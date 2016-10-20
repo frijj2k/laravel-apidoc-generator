@@ -1,11 +1,12 @@
 <?php
 
-namespace Mpociot\ApiDoc\Tests\Fixtures;
+namespace Frijj2k\ApiDoc\Tests\Fixtures;
 
 use Illuminate\Routing\Controller;
 
 class DingoTestController extends Controller
 {
+
     public function dummy()
     {
         return '';

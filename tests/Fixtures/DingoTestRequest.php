@@ -1,11 +1,12 @@
 <?php
 
-namespace Mpociot\ApiDoc\Tests\Fixtures;
+namespace Frijj2k\ApiDoc\Tests\Fixtures;
 
 use Dingo\Api\Http\FormRequest;
 
 class DingoTestRequest extends FormRequest
 {
+
     public function rules()
     {
         return [

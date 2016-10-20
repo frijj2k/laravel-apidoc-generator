@@ -1,18 +1,19 @@
 <?php
 
-namespace Mpociot\ApiDoc\Commands;
+namespace Frijj2k\ApiDoc\Commands;
 
 use Illuminate\Console\Command;
-use Mpociot\Documentarian\Documentarian;
+use Frijj2k\Documentarian\Documentarian;
 
 class UpdateDocumentation extends Command
 {
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'api:update 
+    protected $signature = 'api:update
                             {--location=public/docs : The documentation location}
     ';
 
@@ -44,8 +45,8 @@ class UpdateDocumentation extends Command
 
         $documentarian = new Documentarian();
 
-        if (! is_dir($outputPath)) {
-            $this->error('There is no generated documentation available at '.$outputPath.'.');
+        if (!is_dir($outputPath)) {
+            $this->error('There is no generated documentation available at ' . $outputPath . '.');
 
             return false;
         }
@@ -53,6 +54,6 @@ class UpdateDocumentation extends Command
 
         $documentarian->generate($outputPath);
 
-        $this->info('Wrote HTML documentation to: '.$outputPath.'/public/index.html');
+        $this->info('Wrote HTML documentation to: ' . $outputPath . '/public/index.html');
     }
 }

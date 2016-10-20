@@ -1,19 +1,20 @@
 <?php
 
-namespace Mpociot\ApiDoc\Tests;
+namespace Frijj2k\ApiDoc\Tests;
 
 use Dingo\Api\Provider\LaravelServiceProvider;
-use Mpociot\ApiDoc\ApiDocGeneratorServiceProvider;
-use Mpociot\ApiDoc\Generators\DingoGenerator;
-use Mpociot\ApiDoc\Tests\Fixtures\DingoTestController;
-use Mpociot\ApiDoc\Tests\Fixtures\TestController;
-use Mpociot\ApiDoc\Tests\Fixtures\TestRequest;
+use Frijj2k\ApiDoc\ApiDocGeneratorServiceProvider;
+use Frijj2k\ApiDoc\Generators\DingoGenerator;
+use Frijj2k\ApiDoc\Tests\Fixtures\DingoTestController;
+use Frijj2k\ApiDoc\Tests\Fixtures\TestController;
+use Frijj2k\ApiDoc\Tests\Fixtures\TestRequest;
 use Orchestra\Testbench\TestCase;
 
 class DingoGeneratorTest extends TestCase
 {
+
     /**
-     * @var \Mpociot\ApiDoc\Generators\DingoGenerator
+     * @var \Frijj2k\ApiDoc\Generators\DingoGenerator
      */
     protected $generator;
 
@@ -39,7 +40,7 @@ class DingoGeneratorTest extends TestCase
     {
         $api = app('Dingo\Api\Routing\Router');
         $api->version('v1', function ($api) {
-            $api->get('/api/test', TestController::class.'@parseMethodDescription');
+            $api->get('/api/test', TestController::class . '@parseMethodDescription');
         });
         $route = app('Dingo\Api\Routing\Router')->getRoutes()['v1']->getRoutes()[0];
 
@@ -53,10 +54,10 @@ class DingoGeneratorTest extends TestCase
     {
         $api = app('Dingo\Api\Routing\Router');
         $api->version('v1', function ($api) {
-            $api->get('/get', TestController::class.'@dummy');
-            $api->post('/post', TestController::class.'@dummy');
-            $api->put('/put', TestController::class.'@dummy');
-            $api->delete('/delete', TestController::class.'@dummy');
+            $api->get('/get', TestController::class . '@dummy');
+            $api->post('/post', TestController::class . '@dummy');
+            $api->put('/put', TestController::class . '@dummy');
+            $api->delete('/delete', TestController::class . '@dummy');
         });
         $route = app('Dingo\Api\Routing\Router')->getRoutes()['v1']->getRoutes()[0];
         $parsed = $this->generator->processRoute($route);
@@ -79,7 +80,7 @@ class DingoGeneratorTest extends TestCase
     {
         $api = app('Dingo\Api\Routing\Router');
         $api->version('v1', function ($api) {
-            $api->post('/post', DingoTestController::class.'@parseFormRequestRules');
+            $api->post('/post', DingoTestController::class . '@parseFormRequestRules');
         });
 
         $route = app('Dingo\Api\Routing\Router')->getRoutes()['v1']->getRoutes()[0];
@@ -335,7 +336,6 @@ class DingoGeneratorTest extends TestCase
                     $this->assertSame('url', $attribute['type']);
                     $this->assertCount(0, $attribute['description']);
                     break;
-
             }
         }
     }

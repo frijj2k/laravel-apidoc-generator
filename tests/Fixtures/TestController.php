@@ -1,12 +1,13 @@
 <?php
 
-namespace Mpociot\ApiDoc\Tests\Fixtures;
+namespace Frijj2k\ApiDoc\Tests\Fixtures;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class TestController extends Controller
 {
+
     public function dummy()
     {
         return '';
@@ -50,7 +51,7 @@ class TestController extends Controller
             'id' => (int) $fixture->id,
             'name' => ucfirst($fixture->name),
             'color' => ucfirst($fixture->color),
-            'weight' => $fixture->weight.' grams',
+            'weight' => $fixture->weight . ' grams',
             'delicious' => (bool) $fixture->delicious,
         ];
     }
@@ -65,5 +66,6 @@ class TestController extends Controller
      */
     public function skip()
     {
+
     }
 }

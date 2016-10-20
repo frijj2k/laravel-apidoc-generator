@@ -23,7 +23,7 @@ $ composer require mpociot/laravel-apidoc-generator
 Go to your `config/app.php` and add the service provider:
 
 ```php
-Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
+Frijj2k\ApiDoc\ApiDocGeneratorServiceProvider::class,
 ```
 
 ## Usage

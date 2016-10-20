@@ -1,21 +1,22 @@
 <?php
 
-namespace Mpociot\ApiDoc\Tests;
+namespace Frijj2k\ApiDoc\Tests;
 
 use Dingo\Api\Provider\LaravelServiceProvider;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Routing\Route;
-use Mpociot\ApiDoc\ApiDocGeneratorServiceProvider;
-use Mpociot\ApiDoc\Generators\LaravelGenerator;
-use Mpociot\ApiDoc\Tests\Fixtures\DingoTestController;
+use Frijj2k\ApiDoc\ApiDocGeneratorServiceProvider;
+use Frijj2k\ApiDoc\Generators\LaravelGenerator;
+use Frijj2k\ApiDoc\Tests\Fixtures\DingoTestController;
 use Orchestra\Testbench\TestCase;
-use Mpociot\ApiDoc\Tests\Fixtures\TestController;
+use Frijj2k\ApiDoc\Tests\Fixtures\TestController;
 use Illuminate\Support\Facades\Route as RouteFacade;
 
 class GenerateDocumentationTest extends TestCase
 {
+
     /**
-     * @var \Mpociot\ApiDoc\AbstractGenerator
+     * @var \Frijj2k\ApiDoc\AbstractGenerator
      */
     protected $generator;
 
@@ -31,7 +32,7 @@ class GenerateDocumentationTest extends TestCase
 
     public function tearDown()
     {
-        exec('rm -rf '.__DIR__.'/../public/docs');
+        exec('rm -rf ' . __DIR__ . '/../public/docs');
     }
 
     /**
@@ -50,7 +51,7 @@ class GenerateDocumentationTest extends TestCase
     public function testConsoleCommandNeedsAPrefixOrRoute()
     {
         $output = $this->artisan('api:generate');
-        $this->assertEquals('You must provide either a route prefix or a route or a middleware to generate the documentation.'.PHP_EOL, $output);
+        $this->assertEquals('You must provide either a route prefix or a route or a middleware to generate the documentation.' . PHP_EOL, $output);
     }
 
     public function testConsoleCommandDoesNotWorkWithClosure()
@@ -58,7 +59,7 @@ class GenerateDocumentationTest extends TestCase
         RouteFacade::get('/api/closure', function () {
             return 'foo';
         });
-        RouteFacade::get('/api/test', TestController::class.'@parseMethodDescription');
+        RouteFacade::get('/api/test', TestController::class . '@parseMethodDescription');
 
         $output = $this->artisan('api:generate', [
             '--routePrefix' => 'api/*',
@@ -74,7 +75,7 @@ class GenerateDocumentationTest extends TestCase
             $api->get('/closure', function () {
                 return 'foo';
             });
-            $api->get('/test', DingoTestController::class.'@parseMethodDescription');
+            $api->get('/test', DingoTestController::class . '@parseMethodDescription');
 
             $output = $this->artisan('api:generate', [
                 '--router' => 'dingo',
@@ -87,8 +88,8 @@ class GenerateDocumentationTest extends TestCase
 
     public function testCanSkipSingleRoutesCommandDoesNotWorkWithClosure()
     {
-        RouteFacade::get('/api/skip', TestController::class.'@skip');
-        RouteFacade::get('/api/test', TestController::class.'@parseMethodDescription');
+        RouteFacade::get('/api/skip', TestController::class . '@skip');
+        RouteFacade::get('/api/test', TestController::class . '@parseMethodDescription');
 
         $output = $this->artisan('api:generate', [
             '--routePrefix' => 'api/*',
@@ -99,53 +100,53 @@ class GenerateDocumentationTest extends TestCase
 
     public function testGeneratedMarkdownFileIsCorrect()
     {
-        RouteFacade::get('/api/test', TestController::class.'@parseMethodDescription');
-        RouteFacade::get('/api/fetch', TestController::class.'@fetchRouteResponse');
+        RouteFacade::get('/api/test', TestController::class . '@parseMethodDescription');
+        RouteFacade::get('/api/fetch', TestController::class . '@fetchRouteResponse');
 
         $output = $this->artisan('api:generate', [
             '--routePrefix' => 'api/*',
         ]);
 
-        $generatedMarkdown = file_get_contents(__DIR__.'/../public/docs/source/index.md');
-        $compareMarkdown = file_get_contents(__DIR__.'/../public/docs/source/.compare.md');
-        $fixtureMarkdown = file_get_contents(__DIR__.'/Fixtures/index.md');
+        $generatedMarkdown = file_get_contents(__DIR__ . '/../public/docs/source/index.md');
+        $compareMarkdown = file_get_contents(__DIR__ . '/../public/docs/source/.compare.md');
+        $fixtureMarkdown = file_get_contents(__DIR__ . '/Fixtures/index.md');
         $this->assertSame($generatedMarkdown, $fixtureMarkdown);
         $this->assertSame($compareMarkdown, $fixtureMarkdown);
     }
 
     public function testAddsBindingsToGetRouteRules()
     {
-        RouteFacade::get('/api/test/{foo}', TestController::class.'@addRouteBindingsToRequestClass');
+        RouteFacade::get('/api/test/{foo}', TestController::class . '@addRouteBindingsToRequestClass');
 
         $this->artisan('api:generate', [
             '--routePrefix' => 'api/*',
             '--bindings' => 'foo,bar',
         ]);
 
-        $generatedMarkdown = file_get_contents(__DIR__.'/../public/docs/source/index.md');
+        $generatedMarkdown = file_get_contents(__DIR__ . '/../public/docs/source/index.md');
 
         $this->assertContains('Not in: `bar`', $generatedMarkdown);
     }
 
     public function testGeneratedPostmanCollectionFileIsCorrect()
     {
-        RouteFacade::get('/api/test', TestController::class.'@parseMethodDescription');
-        RouteFacade::post('/api/fetch', TestController::class.'@fetchRouteResponse');
+        RouteFacade::get('/api/test', TestController::class . '@parseMethodDescription');
+        RouteFacade::post('/api/fetch', TestController::class . '@fetchRouteResponse');
 
         $output = $this->artisan('api:generate', [
             '--routePrefix' => 'api/*',
         ]);
 
-        $generatedCollection = json_decode(file_get_contents(__DIR__.'/../public/docs/collection.json'));
+        $generatedCollection = json_decode(file_get_contents(__DIR__ . '/../public/docs/collection.json'));
         $generatedCollection->info->_postman_id = '';
 
-        $fixtureCollection = json_decode(file_get_contents(__DIR__.'/Fixtures/collection.json'));
+        $fixtureCollection = json_decode(file_get_contents(__DIR__ . '/Fixtures/collection.json'));
         $this->assertEquals($generatedCollection, $fixtureCollection);
     }
 
     public function testCanAppendCustomHttpHeaders()
     {
-        RouteFacade::get('/api/headers', TestController::class.'@checkCustomHeaders');
+        RouteFacade::get('/api/headers', TestController::class . '@checkCustomHeaders');
 
         $output = $this->artisan('api:generate', [
             '--routePrefix' => 'api/*',
@@ -155,7 +156,7 @@ class GenerateDocumentationTest extends TestCase
             ],
         ]);
 
-        $generatedMarkdown = file_get_contents(__DIR__.'/../public/docs/source/index.md');
+        $generatedMarkdown = file_get_contents(__DIR__ . '/../public/docs/source/index.md');
         $this->assertContains('"authorization": [
         "customAuthToken"
     ],
