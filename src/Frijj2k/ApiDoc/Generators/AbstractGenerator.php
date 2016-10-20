@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Frijj2k\ApiDoc\Parsers\RuleDescriptionParser as Description;
 use ReflectionClass;
-use Frijj2k\Reflection\DocBlock;
+use Mpociot\Reflection\DocBlock;
 
 abstract class AbstractGenerator
 {

@@ -9,8 +9,8 @@ use Frijj2k\ApiDoc\Generators\AbstractGenerator;
 use Frijj2k\ApiDoc\Generators\DingoGenerator;
 use Frijj2k\ApiDoc\Generators\LaravelGenerator;
 use Frijj2k\ApiDoc\Postman\CollectionWriter;
-use Frijj2k\Documentarian\Documentarian;
-use Frijj2k\Reflection\DocBlock;
+use Mpociot\Documentarian\Documentarian;
+use Mpociot\Reflection\DocBlock;
 use ReflectionClass;
 
 class GenerateDocumentation extends Command

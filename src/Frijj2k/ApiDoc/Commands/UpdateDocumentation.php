@@ -3,7 +3,7 @@
 namespace Frijj2k\ApiDoc\Commands;
 
 use Illuminate\Console\Command;
-use Frijj2k\Documentarian\Documentarian;
+use Mpociot\Documentarian\Documentarian;
 
 class UpdateDocumentation extends Command
 {
